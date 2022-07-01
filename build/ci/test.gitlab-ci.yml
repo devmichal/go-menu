@@ -1,0 +1,8 @@
+test:
+  stage: test
+  image: golang:1.18.3-alpine3.16
+  script:
+    - apk add gcc libc-dev make
+    - make test
+  tags:
+    - docker

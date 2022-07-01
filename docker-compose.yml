@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  db:
+    platform: linux/x86_64
+    image: postgres
+    restart: always
+    ports:
+      - "5430:5432"
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: user
+      POSTGRES_DB: fiber
+    networks:
+      - db-fiber
+
+  app:
+    image: cosmtrek/air
+    working_dir: $PWD
+    ports:
+      - 8010:8010
+    volumes:
+      - ./:$PWD
+    networks:
+      - db-fiber
+
+networks:
+  db-fiber:
+    external:
+      name: 'db-fiber'
